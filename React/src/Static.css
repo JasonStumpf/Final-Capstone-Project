@@ -1,0 +1,44 @@
+#root {
+    background-color: #060ce9;
+    color: white;
+}
+
+body {
+    padding-top: 56px;
+    background-color: #060ce9;
+}
+
+.quiz-table {
+    width: 100%;
+}
+
+.quiz-table th,
+.quiz-table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+.columns {
+    display: flex;
+}
+
+.column {
+    padding-top: 100px;
+    margin: 10px;
+    flex: 1;
+}
+
+.quiz-table {
+    width: 100%;
+}
+.column .btn-primary {
+    background-color: #060ce9;
+    color:#D69F4C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    
+  }
