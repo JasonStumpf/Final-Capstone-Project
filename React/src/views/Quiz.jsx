@@ -32,35 +32,21 @@ const Quiz = () => {
     const [matchingSections, setMatchingSections] = useState([]);
 
     useEffect(() => {
-        const getCategoryIdsFromQuiz = () => {
-          const categoryIds = quiz.reduce((acc, q) => {
-            if (!acc.includes(q.category_id)) {
-              acc.push(q.category_id);
-            }
-            return acc;
-          }, []);
-          return categoryIds;
-        };
-    
-        const computeMatchingSections = () => {
-          if (names && names.length > 0 && quiz && quiz.length > 0) {
-            const categoryIdsFromQuiz = getCategoryIdsFromQuiz();
-            const sections = names.filter((name) =>
-              categoryIdsFromQuiz.includes(name.category_id)
-            );
-    
-            const matchingSections = sections.map((section) => {
-              return {
-                categoryId: section.category_id,
-                category_name: section.category_name,
-                questions: quiz.filter((q) => q.category_id === section.category_id),
-              };
-            });
-            setMatchingSections(matchingSections);
-          }
-        };  
-        computeMatchingSections();
-      }, [names, quiz]);
+      const computeMatchingSections = () => {
+        if (names.length > 0 && quiz.length > 0) {
+          const matchingSections = names.map((section) => {
+            return {
+              categoryId: section.category_id,
+              category_name: section.category_name,
+              questions: quiz.filter((q) => q.category_id === section.category_id),
+            };
+          });
+          setMatchingSections(matchingSections);
+        }
+      };
+  
+      computeMatchingSections();
+    }, [names, quiz]);
 
       return (
         <div>
@@ -72,7 +58,7 @@ const Quiz = () => {
                     <Table responsive className="quiz-table">
                       <thead>
                         <tr>
-                          <th>{section.category_name.toUpperCase()}</th>
+                          <th className="category-name">{section.category_name.toUpperCase()}</th>
                         </tr>
                       </thead>
                       <tbody>
