@@ -9,6 +9,7 @@ const Question = (props) => {
     const [userAnswer, setUserAnswer] = useState("");
     const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
     const [showFeedback, setShowFeedback] = useState(false);
+    const [score, setScore] = useState(0);
 
     const handleInputChange = (event) => {
         setUserAnswer(event.target.value);
@@ -16,9 +17,23 @@ const Question = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (!userAnswer) {
+            setShowFeedback(true);
+            setIsAnswerCorrect(false);
+            return;
+        }
+
         const correctAnswer = props.q.answer;
-        setIsAnswerCorrect(userAnswer.toLowerCase() === correctAnswer.toLowerCase());
+        const isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+        setIsAnswerCorrect(isCorrect);
         setShowFeedback(true);
+
+        if (isCorrect) {
+            setScore((score) => score + props.q.value)
+        }
+        else {
+            setScore((score) => score - props.q.value)
+        }
     }
 
     return (
@@ -44,7 +59,9 @@ const Question = (props) => {
                         </Button>
                     </Form>
                     {showFeedback && isAnswerCorrect && <p className="text-success">Yes, that answer is correct!</p>}
-                    {showFeedback && !isAnswerCorrect  && <p className="text-danger">Sorry, the correct answer was {props.q.answer.toUpperCase()}</p>}
+                    {showFeedback && !isAnswerCorrect && userAnswer.trim() != "" &&<p className="text-danger">Sorry, the correct answer was {props.q.answer.toUpperCase()}</p>}
+                    {showFeedback && !isAnswerCorrect && userAnswer.trim() === "" && <p className="text-danger">Please enter an answer.</p>}
+                    <p>Score: $ {score}</p>
                 </ListGroup>
             </Card>
         </>

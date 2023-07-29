@@ -31,6 +31,8 @@ const Quiz = () => {
 
     const [matchingSections, setMatchingSections] = useState([]);
 
+    const [answeredQuestions, setAnsweredQuestions] = useState([]);
+
     useEffect(() => {
       const computeMatchingSections = () => {
         if (names.length > 0 && quiz.length > 0) {
@@ -44,7 +46,6 @@ const Quiz = () => {
           setMatchingSections(matchingSections);
         }
       };
-  
       computeMatchingSections();
     }, [names, quiz]);
 
