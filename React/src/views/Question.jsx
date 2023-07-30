@@ -40,7 +40,7 @@ const Question = (props) => {
         <>
             <Card className="input-card" style={{ width: '18rem' }}>
                 <ListGroup variant="flush">
-                    <ListGroup.Item>${props.q.value}</ListGroup.Item>
+                    <ListGroup.Item>For ${props.q.value}</ListGroup.Item>
                     <ListGroup.Item>{props.q.question}</ListGroup.Item>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
