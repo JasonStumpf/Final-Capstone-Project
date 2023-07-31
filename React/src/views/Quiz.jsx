@@ -32,16 +32,14 @@ const Quiz = () => {
 
   const [matchingSections, setMatchingSections] = useState([]);
 
-  const [answeredQuestions, setAnsweredQuestions] = useState([]);
-
   useEffect(() => {
     const computeMatchingSections = () => {
       if (names.length > 0 && quiz.length > 0) {
         const matchingSections = names.map((section) => {
           return {
-            categoryId: section.category_id,
-            category_name: section.category_name,
-            questions: quiz.filter((q) => q.category_id === section.category_id),
+            'categoryId' : section.category_id,
+            'category_name' : section.category_name,
+            'questions' : quiz.filter((q) => q.category_id === section.category_id),
           };
         });
         setMatchingSections(matchingSections);
@@ -55,6 +53,8 @@ const Quiz = () => {
   useEffect(() => {
     audioRef.current.play();
   }, []);
+
+  const [answeredQuestions, setAnsweredQuestions] = useState([]);
 
   return (
     <div>
@@ -87,7 +87,7 @@ const Quiz = () => {
         )}
       </div>
       <div className="container">
-        {currentQuestion ? <Question q={currentQuestion} /> : null}
+        {currentQuestion ? <Question q={currentQuestion} a={answeredQuestions} s={setAnsweredQuestions} /> : null}
       </div>
       <audio ref={audioRef} src="/board.mp3" />
     </div>

@@ -34,6 +34,9 @@ const Question = (props) => {
         else {
             setScore((score) => score - props.q.value)
         }
+        let copyA = [...props.a]
+        copyA.push(props.q.id)
+        props.s(copyA)
     }
 
     return (
@@ -42,15 +45,14 @@ const Question = (props) => {
                 <ListGroup variant="flush">
                     <ListGroup.Item>For ${props.q.value}</ListGroup.Item>
                     <ListGroup.Item>{props.q.question}</ListGroup.Item>
+                    
+                    {props.a.includes(props.q.id) && isAnswerCorrect ? <p className="text-success">Yes, that answer is correct!</p> 
+                    : 
+                    props.a.includes(props.q.id) && !isAnswerCorrect ? <p className="text-danger">Sorry, the correct answer was {props.q.answer.toUpperCase()}</p> 
+                    : 
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control
-                                size="lg"
-                                type="text"
-                                placeholder="What is"
-                                value={userAnswer}
-                                onChange={handleInputChange}
-                            />
+                            <Form.Control size="lg" type="text" placeholder="What is" value={userAnswer} onChange={handleInputChange} />
                             <Form.Text className="text-muted">
                             </Form.Text>
                         </Form.Group>
@@ -58,9 +60,9 @@ const Question = (props) => {
                             Submit
                         </Button>
                     </Form>
-                    {showFeedback && isAnswerCorrect && <p className="text-success">Yes, that answer is correct!</p>}
-                    {showFeedback && !isAnswerCorrect && userAnswer.trim() != "" &&<p className="text-danger">Sorry, the correct answer was {props.q.answer.toUpperCase()}</p>}
-                    {showFeedback && !isAnswerCorrect && userAnswer.trim() === "" && <p className="text-danger">Please enter an answer.</p>}
+                     }
+
+                
                     <p>Score: $ {score}</p>
                 </ListGroup>
             </Card>
