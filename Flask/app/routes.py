@@ -2,6 +2,7 @@ from app import app
 from .models import Clue, Category, User
 from flask import render_template, request
 import requests, random
+from werkzeug.security import check_password_hash
 
 @app.route('/')
 def home():
@@ -59,3 +60,24 @@ def signup():
             'status':'OK',
             'message': 'Sign-up successful'
             }
+    
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data['username']
+    password = data['password']
+    user = User.query.filter_by(username=username).first()
+
+    if user.password == password:
+        return {
+            'status': 'ok',
+            'message': 'Logged in!',
+            
+        }
+    else:
+        print("Invalid login attempt.")
+        return {
+            'status': 'NOT OK',
+            'message': 'Wrong Password',
+        }, 400
+    

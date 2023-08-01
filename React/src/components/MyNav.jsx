@@ -15,6 +15,8 @@ function MyNav() {
                         <Link className="navbar-brand" to="/">Home</Link>
                         <Link className="navbar-brand" to="/quiz">Quiz</Link>
                         <Link className="navbar-brand" to="/highscores">High Scores</Link>
+                        <Link className="navbar-brand" to="/signup">Sign Up</Link>
+                        <Link className="navbar-brand" to="/login">Log In</Link>
                     </Nav>
                 </Container>
             </Navbar>
