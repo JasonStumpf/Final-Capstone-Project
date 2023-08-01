@@ -55,12 +55,11 @@ const Question = (props) => {
                                     <Form.Text className="text-muted">
                                     </Form.Text>
                                 </Form.Group>
-                                <Button variant="success" type="submit">
-                                    Submit
-                                </Button>
-                            </Form>   
+                                <Button variant="success" type="submit">Submit</Button>
+                            </Form>          
                     }
                     <p>Score: $ {score}</p>
+                    <Button variant="secondary">Save Current Score</Button>
                 </ListGroup>
             </Card>
         </>

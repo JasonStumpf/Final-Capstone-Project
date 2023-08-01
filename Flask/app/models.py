@@ -46,3 +46,9 @@ class User(db.Model):
     def save_user(self):
         db.session.add(self)
         db.session.commit()
+
+    def to_dict(self):
+        return {
+            'id' : self.id,
+            'username' : self.username
+        }

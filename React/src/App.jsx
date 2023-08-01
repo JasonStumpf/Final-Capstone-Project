@@ -4,8 +4,8 @@ import Quiz from './views/Quiz';
 import Home from './views/Home';
 import MyNav from './components/MyNav';
 import Highscores from './views/Highscores';
-import SignUp from './views/Signup';
-import Login from './views/Login';
+import SignUp from './auth/Signup';
+import Login from './auth/Login';
 
 function App() {
 

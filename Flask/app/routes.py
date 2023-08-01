@@ -1,8 +1,7 @@
 from app import app
 from .models import Clue, Category, User
-from flask import render_template, request
+from flask import render_template, request, jsonify
 import requests, random
-from werkzeug.security import check_password_hash
 
 @app.route('/')
 def home():
@@ -47,12 +46,20 @@ def signup():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
+    confirm = data.get('confirm')
 
     if User.query.filter_by(username=username).first():
         return {
             'status':' NOT OK',
             'message': 'Username already exists'
             }
+    
+    elif password != confirm:
+        return {
+            'status':' NOT OK',
+            'message': 'Passwords do not match'
+            }
+
     else:
         user = User(username=username, password=password)
         user.save_user()
@@ -68,16 +75,20 @@ def login():
     password = data['password']
     user = User.query.filter_by(username=username).first()
 
-    if user.password == password:
-        return {
-            'status': 'ok',
-            'message': 'Logged in!',
-            
-        }
+    if user:
+        if user.password == password:
+            return {
+                'status': 'OK',
+                'message': 'Logged in!',
+                'user' : user.to_dict()
+            }
+        else:
+            return {
+                'status': 'NOT OK',
+                'message': 'Wrong Password',
+            }
     else:
-        print("Invalid login attempt.")
         return {
             'status': 'NOT OK',
-            'message': 'Wrong Password',
-        }, 400
-    
+            'message': 'Wrong Username',
+        }

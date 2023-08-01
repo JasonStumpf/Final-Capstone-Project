@@ -1,7 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { DataContext } from "../components/DataProvider";
 
 const Home = () => {
     const audioRef = useRef(null);
+    const {user, setUser} = useContext(DataContext);
 
     useEffect(() => {
         audioRef.current.play();

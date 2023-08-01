@@ -1,26 +1,40 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [matchingPasswords, setMatchingPasswords] = useState(true)
+  const [takenUsername, setTakenUsername] = useState(false)
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    console.log(form);
+
     let vals = {};
     vals['username'] = e.target[0].value;
     vals['password'] = e.target[1].value;
-    console.log(vals);
+    vals['confirm'] = e.target[2].value;
+
     axios.post('http://127.0.0.1:5000/signup', JSON.stringify(vals), {
       headers: { 'Content-Type': 'application/json' }
     }
     )
       .then(function (response) {
-        console.log(response.data);
+        if (response.data['message'] === 'Username already exists') {
+          setTakenUsername(true);
+        } else if (response.data['message'] === 'Passwords do not match') {
+          setMatchingPasswords(false);     
+        } else {
+          setTakenUsername(false);
+          alert("Account successfully created!");
+          navigate("/login");
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -29,21 +43,29 @@ const SignUp = () => {
 
   return (
     <div className="container">
+      <h1>Welcome New Player!</h1>
+      <h2>Sign Up</h2>
       <Form method="POST" className="col m-auto mt-5" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Username:</Form.Label>
           <Form.Control type="text" placeholder="Username" value={userName} onChange={(e) => setUserName(e.target.value)} />
+          {takenUsername && <Form.Text className="text-danger">Username already taken.</Form.Text>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Password:</Form.Label>
           <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Login
+        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea2">
+          <Form.Label>Confirm Password:</Form.Label>
+          <Form.Control type="password" placeholder="Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          {!matchingPasswords && <Form.Text className="text-danger">Passwords do not match.</Form.Text>}
+        </Form.Group>
+        <Button variant="success" type="submit">
+          Sign Up
         </Button>
         <br />
         Already have an account:
-        <Link>
+        <Link to="/login">
           LOG IN
         </Link>
       </Form>

@@ -5,9 +5,12 @@ import Table from 'react-bootstrap/Table';
 import '../static.css';
 import Question from "./Question";
 import { Button } from "react-bootstrap";
+import { DataContext } from "../components/DataProvider";
 
 
 const Quiz = () => {
+
+  const {user, setUser} = useContext(DataContext)
 
   const getQuizData = async () => {
     let response = await axios.get('http://127.0.0.1:5000/quiz');
@@ -58,6 +61,8 @@ const Quiz = () => {
 
   return (
     <div>
+      <h1>PLEASE WELCOME TODAYS CONTESTANT:</h1>
+      {user.id? <h2>{user.username}</h2> : null}
       <div className="container">
         {matchingSections && matchingSections.length > 0 ? (
           <div className="columns">
