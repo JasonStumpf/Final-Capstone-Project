@@ -37,3 +37,12 @@ class Category(db.Model):
             'category_name' : self.category_name,
             'category_id' : self.category_id
         }
+    
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, nullable=False, unique=True)
+    password = db.Column(db.String, nullable=False)
+
+    def save_user(self):
+        db.session.add(self)
+        db.session.commit()

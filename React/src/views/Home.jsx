@@ -9,7 +9,7 @@ const Home = () => {
 
         return (
             <div>
-                <img src="/wallpaper.jpg" alt="Example" style={{ width: '100vw', height: '94.6vh' }} />
+                <img src="/wallpaper.jpg" alt="Example" style={{ width: '100vw', height: '94.7vh' }} />
                 <audio ref={audioRef} src="/intro.mp3" />
             </div>
         )

@@ -45,24 +45,21 @@ const Question = (props) => {
                 <ListGroup variant="flush">
                     <ListGroup.Item>For ${props.q.value}</ListGroup.Item>
                     <ListGroup.Item>{props.q.question}</ListGroup.Item>
-                    
-                    {props.a.includes(props.q.id) && isAnswerCorrect ? <p className="text-success">Yes, that answer is correct!</p> 
-                    : 
-                    props.a.includes(props.q.id) && !isAnswerCorrect ? <p className="text-danger">Sorry, the correct answer was {props.q.answer.toUpperCase()}</p> 
-                    : 
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control size="lg" type="text" placeholder="What is" value={userAnswer} onChange={handleInputChange} />
-                            <Form.Text className="text-muted">
-                            </Form.Text>
-                        </Form.Group>
-                        <Button variant="success" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-                     }
-
-                
+                    {props.a.includes(props.q.id) && isAnswerCorrect && showFeedback === true ? <p className="text-success">Yes, the correct answer was {props.q.answer.toUpperCase()}.</p>
+                        :
+                        props.a.includes(props.q.id) && !isAnswerCorrect && showFeedback === true ? <p className="text-danger">Sorry, the correct answer was {props.q.answer.toUpperCase()}.</p>
+                            :
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Control size="lg" type="text" placeholder="What is" value={userAnswer} onChange={handleInputChange} />
+                                    <Form.Text className="text-muted">
+                                    </Form.Text>
+                                </Form.Group>
+                                <Button variant="success" type="submit">
+                                    Submit
+                                </Button>
+                            </Form>   
+                    }
                     <p>Score: $ {score}</p>
                 </ListGroup>
             </Card>

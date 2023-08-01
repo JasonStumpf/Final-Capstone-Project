@@ -1,22 +1,28 @@
 #root {
     background-color: #060ce9;
-    color:whitesmoke;
+    color: whitesmoke;
     font-weight: 900;
     width: 100vw;
-    height: 94.6vh;
+    height: 94.7vh;
 }
 
 body {
-    padding-top: 56px;
+    padding-top: 55px;
 }
 
 .quiz-table {
     width: 100%;
+    color: #060ce9;
 }
 
 .quiz-table th {
     padding: 8px;
     text-align: center;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
 }
 
 .columns {
@@ -24,9 +30,11 @@ body {
 }
 
 .column {
-    padding-top: 25px;
+    padding-top: 50px;
     margin: 10px;
     flex: 1;
+    height:560px;
+    text-align: center;
 }
 
 .column .btn-primary {
@@ -41,16 +49,15 @@ body {
     font-weight: 900;
 }
 
-.category-name {
-    font-size: 18px;
-    font-weight: bold;
-}
-
 .input-card {
     padding: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     font-size: large;
-  }
+}
+
+.container {
+    padding-top: 0.5px;
+}

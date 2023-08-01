@@ -1,6 +1,6 @@
 from app import app
-from .models import Clue, Category
-from flask import render_template
+from .models import Clue, Category, User
+from flask import render_template, request
 import requests, random
 
 @app.route('/')
@@ -40,3 +40,22 @@ def get_game_data():
         'question_list' : q_list,
         'category_list' : c_list
     }
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    if User.query.filter_by(username=username).first():
+        return {
+            'status':' NOT OK',
+            'message': 'Username already exists'
+            }
+    else:
+        user = User(username=username, password=password)
+        user.save_user()
+        return {
+            'status':'OK',
+            'message': 'Sign-up successful'
+            }

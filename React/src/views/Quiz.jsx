@@ -63,7 +63,7 @@ const Quiz = () => {
           <div className="columns">
             {matchingSections.map((section) => (
               <div key={section.categoryId} className="column">
-                <Table responsive className="quiz-table">
+                <Table className="quiz-table">
                   <thead>
                     <tr>
                       <th className="category-name">{section.category_name.toUpperCase()}</th>
