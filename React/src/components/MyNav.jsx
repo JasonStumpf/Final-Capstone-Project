@@ -28,7 +28,7 @@ function MyNav() {
                             <Link className="navbar-brand" to="/quiz">Quiz</Link>
                             <Link className="navbar-brand" to="/highscores">High Scores</Link>
                             <Button variant="dark" onClick={handleLogout}>Logout</Button>
-                            <h6 className="text-dark">current user: {user.username}</h6>
+                            <h6 className="text-primary">current user: {user.username}</h6>
                             </>
                         ) : (
                             <>

@@ -44,7 +44,7 @@ const SignUp = () => {
   return (
     <div className="container">
       <h1>Welcome New Player!</h1>
-      <h2>Sign Up</h2>
+      <h1>Sign Up</h1>
       <Form method="POST" className="col m-auto mt-5" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Username:</Form.Label>

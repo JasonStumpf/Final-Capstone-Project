@@ -18,7 +18,7 @@ body {
 .quiz-table th {
     padding: 1px;
     text-align: center;
-    height: 70px;
+    height: 65px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,7 +33,7 @@ body {
     padding-top: 1px;
     margin: 10px;
     flex: 1;
-    height:435px;
+    height:420px;
     text-align: center;
 }
 
@@ -59,7 +59,7 @@ body {
 }
 
 .container {
-    padding-top: 0.5px;
+    padding-top: 0.4px;
 }
 
 h1 {
@@ -69,5 +69,12 @@ h1 {
 
 h2 {
     text-align: center;
-    color:#D69F4C
+    color:gold;
+    text-decoration: underline;
 }
+
+.highscores-container {
+    display: block;
+    padding-left: 420px;
+    padding-right: 420px; 
+  }

@@ -1,5 +1,5 @@
-from app import app
-from .models import Clue, Category, User
+from app import app#
+from .models import Clue, Category, User, Highscores
 from flask import render_template, request, jsonify
 import requests, random
 
@@ -26,7 +26,7 @@ def home():
         
     return render_template ('index.html')
 
-@app.get('/quiz')
+@app.route('/quiz', methods=['GET'])
 def get_game_data():
     questions = Clue.query.all()
     categories = Category.query.all()
@@ -92,3 +92,32 @@ def login():
             'status': 'NOT OK',
             'message': 'Wrong Username',
         }
+    
+@app.route('/save', methods=['POST'])
+def save_score():
+    data = request.get_json()
+    username = data.get('username')
+    score = data.get('score')
+
+    user_score = Highscores(username_id=username, score=score)
+    user_score.save_user_score()
+    return {
+            'status':'OK',
+            'message': 'Score Saved'
+            }
+
+@app.route('/highscores', methods=['GET'])
+def get_highscores():
+    highscores = Highscores.query.join(User).order_by(Highscores.score.desc()).all()
+
+    highscore_list = []
+
+    for highscore in highscores:
+        user = User.query.get(highscore.username_id)
+        highscore_dict = {
+            'username': user.username,
+            'score': highscore.score
+        }
+        highscore_list.append(highscore_dict)
+
+    return jsonify(highscore_list)

@@ -52,3 +52,19 @@ class User(db.Model):
             'id' : self.id,
             'username' : self.username
         }
+    
+class Highscores(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+
+    def save_user_score(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username_id': self.username_id,
+            'score': self.score
+        }

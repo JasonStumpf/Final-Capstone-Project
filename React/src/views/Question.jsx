@@ -1,15 +1,19 @@
 import { Button } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import '../static.css';
 import Form from 'react-bootstrap/Form';
+import { DataContext } from "../components/DataProvider";
+import axios from "axios";
 
 const Question = (props) => {
     const [userAnswer, setUserAnswer] = useState("");
     const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
     const [showFeedback, setShowFeedback] = useState(false);
     const [score, setScore] = useState(0);
+    const {user, setUser} = useContext(DataContext)
+    const [userScore, setUserScore] = useState(false);
 
     const handleInputChange = (event) => {
         setUserAnswer(event.target.value);
@@ -39,6 +43,32 @@ const Question = (props) => {
         props.s(copyA)
     }
 
+    const saveScore = () => {
+        if (user.id && !userScore) {
+            const scoreData = {
+                username: user.id,
+                score: score
+            };
+    
+            axios.post("http://127.0.0.1:5000/save", scoreData)
+                .then(response => {
+                    if (response.status === 200) {
+                        setUserScore(true);
+                        alert("Score saved successfully!");
+                    } else {
+                        console.error("Error saving score: ", response.data);
+                        alert("Error saving score. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error saving score:", error);
+                    alert("Error saving score. Please try again.");
+                });
+        } else {
+            alert("Score has already been saved.");
+        }
+    };
+
     return (
         <>
             <Card className="input-card" style={{ width: '18rem' }}>
@@ -59,7 +89,7 @@ const Question = (props) => {
                             </Form>          
                     }
                     <p>Score: $ {score}</p>
-                    <Button variant="secondary">Save Current Score</Button>
+                    <Button variant="secondary" onClick={saveScore}>Save Current Score</Button>
                 </ListGroup>
             </Card>
         </>

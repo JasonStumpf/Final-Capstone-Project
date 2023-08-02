@@ -62,7 +62,7 @@ const Quiz = () => {
   return (
     <div>
       <h1>PLEASE WELCOME TODAYS CONTESTANT:</h1>
-      {user.id? <h2>{user.username}</h2> : null}
+      {user.id? <h2>{user.username.toUpperCase()}</h2> : null}
       <div className="container">
         {matchingSections && matchingSections.length > 0 ? (
           <div className="columns">

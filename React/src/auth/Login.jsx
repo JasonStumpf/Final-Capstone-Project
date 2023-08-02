@@ -47,7 +47,7 @@ const Login = () => {
     return (
         <div className="container">
             <h1>Welcome Returning Player!</h1>
-            <h2>Log In</h2>
+            <h1>Log In</h1>
             <Form method="POST" className="col m-auto mt-5" onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Username:</Form.Label>
