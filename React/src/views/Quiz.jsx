@@ -77,7 +77,7 @@ const Quiz = () => {
                   <tbody>
                     {section.questions.map((question, index) => (
                       <tr key={index}>
-                        <Button key={index} variant="primary" onClick={() => setQuestion(question)}>$ {question.value}</Button>
+                        <Button key={index} variant="primary" onClick={() => setQuestion(question)} disabled={answeredQuestions.includes(question.id)}>$ {question.value}</Button>
                       </tr>
                     ))}
                   </tbody>

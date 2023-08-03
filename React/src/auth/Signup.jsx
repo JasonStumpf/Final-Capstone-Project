@@ -49,7 +49,7 @@ const SignUp = () => {
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Username:</Form.Label>
           <Form.Control type="text" placeholder="Username" value={userName} onChange={(e) => setUserName(e.target.value)} />
-          {takenUsername && <Form.Text className="text-danger">Username already taken.</Form.Text>}
+          {takenUsername && <Form.Text className="text-danger">Username already exists.</Form.Text>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Password:</Form.Label>

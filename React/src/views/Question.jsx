@@ -14,6 +14,7 @@ const Question = (props) => {
     const [score, setScore] = useState(0);
     const {user, setUser} = useContext(DataContext)
     const [userScore, setUserScore] = useState(false);
+    const [skippedQuestions, setSkippedQuestions] = useState([]);
 
     const handleInputChange = (event) => {
         setUserAnswer(event.target.value);
@@ -69,25 +70,47 @@ const Question = (props) => {
         }
     };
 
+    const skipQuestion = () => {
+        setShowFeedback(true);
+        setSkippedQuestions([...skippedQuestions, props.q.id]);
+        let copyA = [...props.a]
+        copyA.push(props.q.id)
+        props.s(copyA)
+    }
+
     return (
         <>
             <Card className="input-card" style={{ width: '18rem' }}>
                 <ListGroup variant="flush">
-                    <ListGroup.Item>For ${props.q.value}</ListGroup.Item>
-                    <ListGroup.Item>{props.q.question}</ListGroup.Item>
-                    {props.a.includes(props.q.id) && isAnswerCorrect && showFeedback === true ? <p className="text-success">Yes, the correct answer was {props.q.answer.toUpperCase()}.</p>
-                        :
-                        props.a.includes(props.q.id) && !isAnswerCorrect && showFeedback === true ? <p className="text-danger">Sorry, the correct answer was {props.q.answer.toUpperCase()}.</p>
-                            :
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Control size="lg" type="text" placeholder="What is" value={userAnswer} onChange={handleInputChange} />
-                                    <Form.Text className="text-muted">
-                                    </Form.Text>
-                                </Form.Group>
-                                <Button variant="success" type="submit">Submit</Button>
-                            </Form>          
-                    }
+                    {skippedQuestions.includes(props.q.id) ? (
+                        <>
+                            <ListGroup.Item>For ${props.q.value}</ListGroup.Item>
+                            <ListGroup.Item>{props.q.question}</ListGroup.Item>
+                            <p className="text-muted">The correct answer was: {props.q.answer.toUpperCase()}</p>
+                        </>
+                    ) : (
+                        <>
+                            <ListGroup.Item>For ${props.q.value}</ListGroup.Item>
+                            <ListGroup.Item>{props.q.question}</ListGroup.Item>
+                            {props.a.includes(props.q.id) && isAnswerCorrect && showFeedback === true ? (
+                                <p className="text-success">Yes, the correct answer was {props.q.answer.toUpperCase()}.</p>
+                            ) : (
+                                props.a.includes(props.q.id) && !isAnswerCorrect && showFeedback === true ? (
+                                    <p className="text-danger">Sorry, the correct answer was {props.q.answer.toUpperCase()}.</p>
+                                ) : (
+                                    <Form onSubmit={handleSubmit}>
+                                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                                            <Form.Control size="lg" type="text" placeholder="What is" value={userAnswer} onChange={handleInputChange} />
+                                            <Form.Text className="text-muted">
+                                            </Form.Text>
+                                        </Form.Group>
+                                        <Button variant="success" type="submit">Submit</Button>
+                                        <Button variant="danger" onClick={skipQuestion}>Skip</Button>
+                                    </Form>
+                                )
+                            )}
+                        </>
+                    )}
                     <p>Score: $ {score}</p>
                     <Button variant="secondary" onClick={saveScore}>Save Current Score</Button>
                 </ListGroup>

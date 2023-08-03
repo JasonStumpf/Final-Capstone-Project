@@ -5,7 +5,7 @@ import requests, random
 
 @app.route('/')
 def home():
-    response = requests.get("https://jservice.io/api/category?id=27793")
+    response = requests.get("https://jservice.io/api/category?id=27494")
     if response.ok:
         data = response.json()
 
@@ -15,12 +15,12 @@ def home():
         #)
         #category.save_category()
 
-        #if data['clues'][4]['value'] == 1234:
+        #if data['clues'][1]['value'] == 1234:
         #    clue = Clue(
-        #        answer=data['clues'][4]['answer'],
-        #        question=data['clues'][4]['question'],
-        #        value=data['clues'][4]['value'],             
-        #        category_id=data['clues'][4]['category_id']               
+        #        answer=data['clues'][1]['answer'],
+        #        question=data['clues'][1]['question'],
+        #        value=data['clues'][1]['value'],             
+        #        category_id=data['clues'][1]['category_id']               
         #    )
         #    clue.save_question()
         
